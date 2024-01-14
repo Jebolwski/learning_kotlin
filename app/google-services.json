@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118138152331",
+    "project_id": "android-login-be3b6",
+    "storage_bucket": "android-login-be3b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118138152331:android:06ff7ba1c1c4693e4ffb8e",
+        "android_client_info": {
+          "package_name": "com.example.greetingcard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANA4J3OoqN9CjwMD0Udkkj0WlKntPxTpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
