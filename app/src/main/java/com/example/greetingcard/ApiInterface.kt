@@ -6,7 +6,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface ApiInterface {
-    @Headers()
     @GET("comments")
-    fun getData(@Query("postId") query:String): Call<MyDataItem>
+    fun getData(@Query("postId") query:String): Call<MyData>
 }
