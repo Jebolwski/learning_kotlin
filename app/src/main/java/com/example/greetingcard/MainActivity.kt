@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var myAdapter: MyAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        getSupportActionBar()?.hide()
+        setContentView(R.layout.all_comments)
+        supportActionBar?.hide()
         val retroifBuilder = Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiInterface::class.java)
@@ -35,7 +35,14 @@ class MainActivity : AppCompatActivity() {
                 myAdapter = MyAdapter(this@MainActivity,dataList)
                 myRecyclerView.adapter = myAdapter
                 myRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                Log.d("fak","savdsavdsad")
+                /*
+                val calculator = findViewById<Button>(R.id.calculator)
+
+                calculator.setOnClickListener{
+                    intent = Intent(this,CalculatorActivity::class.java)
+                    startActivity(intent)
+                }
+                */
             }
 
             override fun onFailure(call: Call<MyData?>, t: Throwable) {
@@ -45,12 +52,7 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        val calculator = findViewById<Button>(R.id.calculator)
 
-        calculator.setOnClickListener{
-            intent = Intent(this,CalculatorActivity::class.java)
-            startActivity(intent)
-        }
 
 
     }

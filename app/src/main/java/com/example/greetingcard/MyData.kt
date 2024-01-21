@@ -1,3 +1,3 @@
 package com.example.greetingcard
 
-class MyData : ArrayList<MyDataItem>()
+class MyData : ArrayList<MyDataItem>(),java.io.Serializable

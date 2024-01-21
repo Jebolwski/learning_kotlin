@@ -1,6 +1,7 @@
 package com.example.greetingcard
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,12 @@ class MyAdapter(val context:Activity, val dataList: MyData):RecyclerView.Adapter
         holder.body.text = currentData.body
         holder.email.text = currentData.email
         holder.name.text = currentData.name
+        holder.itemView.setOnClickListener{
+            val intent = Intent(holder.itemView.context,CommentDetail::class.java)
+            intent.putExtra("comment", dataList[position])
+            holder.itemView.context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int {
