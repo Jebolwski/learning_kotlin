@@ -114,7 +114,49 @@ fun News(navController: NavController, items:List<BottomNavigationItem>, selecte
 
                     }
                 }
+
+                Scaffold(
+                    bottomBar = {
+                        NavigationBar {
+                            items.forEachIndexed { index, item ->
+                                NavigationBarItem(
+                                    selected = selectedItem == index,
+                                    onClick = {
+                                        selectedItem = index
+                                        navController.navigate(item.title)
+                                    },
+                                    label = {
+                                        Text(text = item.title)
+                                    },
+                                    icon = {
+                                        BadgedBox(
+                                            badge = {
+                                                if(item.badgeCount != null) {
+                                                    Badge {
+                                                        Text(text = item.badgeCount.toString())
+                                                    }
+                                                } else if(item.hasNews) {
+                                                    Badge()
+                                                }
+                                            }
+                                        ) {
+                                            Icon(
+                                                imageVector = if (index == selectedItem) {
+                                                    item.selectedIcon
+                                                } else item.unselectedIcon,
+                                                contentDescription = item.title
+                                            )
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                ) {
+                    println(it.toString())
+                }
             }
+
 
 
         }
