@@ -1,5 +1,6 @@
 package com.example.jetpackcompose
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -161,6 +162,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
@@ -226,7 +228,6 @@ fun GreetingPreview() {
                             }
                         }
                     ) {
-                        println(it.toString())
                     }
 
                 }

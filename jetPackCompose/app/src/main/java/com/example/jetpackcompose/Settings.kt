@@ -1,5 +1,6 @@
 package com.example.jetpackcompose
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -43,12 +46,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcompose.ui.theme.JetPackComposeTheme
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Settings(navController: NavController,items:List<BottomNavigationItem>,selectedItem:Int){
     JetPackComposeTheme {
         var selectedItem = 2
-        println(selectedItem)
         var text by remember {
             mutableStateOf(0.0)
         }
@@ -63,7 +66,85 @@ fun Settings(navController: NavController,items:List<BottomNavigationItem>,selec
             color = MaterialTheme.colorScheme.background
         ) {
             Column {
-                Column(horizontalAlignment = Alignment.CenterHorizontally,
+                val windowInfo = RememberWindowInfo()
+                if (windowInfo.screenWidthInfo is WindowInfo.WindowType.Expanded){
+                    NavigationRail {
+                        items.forEachIndexed { index, item ->
+                            NavigationRailItem(
+                                selected = selectedItem == index,
+                                onClick = {
+                                    selectedItem = index
+                                    navController.navigate(item.title)
+                                },
+                                label = {
+                                    Text(text = item.title)
+                                },
+                                icon = {
+                                    BadgedBox(
+                                        badge = {
+                                            if(item.badgeCount != null) {
+                                                Badge {
+                                                    Text(text = item.badgeCount.toString())
+                                                }
+                                            } else if(item.hasNews) {
+                                                Badge()
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector =
+                                            if (index == selectedItem) item.selectedIcon else item.unselectedIcon,
+                                            contentDescription = item.title
+                                        )
+                                    }
+                                }
+                            )
+                        }
+                    }
+                }
+                else if (windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium){
+                    Text("Medium")
+                }else{
+                    Scaffold(
+                        bottomBar = {
+                            NavigationBar {
+                                items.forEachIndexed { index, item ->
+                                    NavigationBarItem(
+                                        selected = selectedItem == index,
+                                        onClick = {
+                                            selectedItem = index
+                                            navController.navigate(item.title)
+                                        },
+                                        label = {
+                                            Text(text = item.title)
+                                        },
+                                        icon = {
+                                            BadgedBox(
+                                                badge = {
+                                                    if(item.badgeCount != null) {
+                                                        Badge {
+                                                            Text(text = item.badgeCount.toString())
+                                                        }
+                                                    } else if(item.hasNews) {
+                                                        Badge()
+                                                    }
+                                                }
+                                            ) {
+                                                Icon(
+                                                    imageVector =
+                                                    if (index == selectedItem) item.selectedIcon else item.unselectedIcon,
+                                                    contentDescription = item.title
+                                                )
+                                            }
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    ) {
+                    }
+                }
+                /*Column(horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 15.dp)) {
@@ -99,47 +180,9 @@ fun Settings(navController: NavController,items:List<BottomNavigationItem>,selec
                     Text(text = res,fontSize=24.sp,
                         modifier = Modifier.padding(top=15.dp))
 
-                }
+                }*/
 
-                Scaffold(
-                    bottomBar = {
-                        NavigationBar {
-                            items.forEachIndexed { index, item ->
-                                NavigationBarItem(
-                                    selected = selectedItem == index,
-                                    onClick = {
-                                        selectedItem = index
-                                        navController.navigate(item.title)
-                                    },
-                                    label = {
-                                        Text(text = item.title)
-                                    },
-                                    icon = {
-                                        BadgedBox(
-                                            badge = {
-                                                if(item.badgeCount != null) {
-                                                    Badge {
-                                                        Text(text = item.badgeCount.toString())
-                                                    }
-                                                } else if(item.hasNews) {
-                                                    Badge()
-                                                }
-                                            }
-                                        ) {
-                                            Icon(
-                                                imageVector =
-                                                if (index == selectedItem) item.selectedIcon else item.unselectedIcon,
-                                                contentDescription = item.title
-                                            )
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    }
-                ) {
-                    println(it.toString())
-                }
+
             }
 
         }

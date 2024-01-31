@@ -3,6 +3,7 @@
 package com.example.jetpackcompose
 
 import android.R
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -58,6 +59,7 @@ data class News(
     val text:String
 )
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun News(navController: NavController, items:List<BottomNavigationItem>, selectedItem:Int){
@@ -100,7 +102,6 @@ fun News(navController: NavController, items:List<BottomNavigationItem>, selecte
                             Text(text = item.text, modifier = Modifier.padding(12.dp))
                             IconButton(onClick = {
                                 var element = arrayList.find { news -> news.id==item.id }
-                                println(element!!.text+element.id.toString())
                                 arrayList.remove(element)
                             }) {
                                 Icon(
@@ -153,7 +154,6 @@ fun News(navController: NavController, items:List<BottomNavigationItem>, selecte
                         }
                     }
                 ) {
-                    println(it.toString())
                 }
             }
 

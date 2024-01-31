@@ -1,5 +1,6 @@
 package com.example.jetpackcompose
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -51,12 +52,22 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcompose.ui.theme.JetPackComposeTheme
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(navController: NavController,items:List<BottomNavigationItem>,selectedItem:Int){
-    println(selectedItem)
     JetPackComposeTheme {
         var selectedItem = 0
+        val windowInfo = RememberWindowInfo()
+        println(windowInfo.screenHeightInfo.toString()+ "messi")
+        if (windowInfo.screenHeightInfo is WindowInfo.WindowType.Expanded){
+            Text("Expanded")
+        }
+        else if (windowInfo.screenHeightInfo is WindowInfo.WindowType.Medium){
+            Text("Medium")
+        }else{
+            Text("Compact")
+        }
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -110,7 +121,6 @@ fun Home(navController: NavController,items:List<BottomNavigationItem>,selectedI
                         }
                     }
                 ) {
-                    println(it.toString())
                 }
             }
 
@@ -122,7 +132,9 @@ fun Home(navController: NavController,items:List<BottomNavigationItem>,selectedI
 @Preview()
 @Composable
 fun Prev(){
-    Row(modifier = Modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xEBEBEBEB))){
+    Row(modifier = Modifier
+        .clip(RoundedCornerShape(8.dp))
+        .background(Color(0xEBEBEBEB))){
         Image(painter = painterResource(id = R.drawable.business), contentDescription = "Image", modifier = Modifier.size(68.dp))
         Column(modifier=Modifier.padding(start=16.dp,end=16.dp,top=16.dp),
             verticalArrangement = Arrangement.Center) {
